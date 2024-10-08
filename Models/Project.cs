@@ -1,30 +1,48 @@
-﻿// ~/Models/Project.cs
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DMAWS_T2305M_TranHung.Models
 {
 	public class Project
 	{
-		public int ProjectId { get; set; } // Id thể loại
+		[Key] // Primary key
+		public int ProjectId { get; set; }
 
-		[Required(ErrorMessage = "Tên dự án là bắt buộc")]
-		[StringLength(150, MinimumLength = 2, ErrorMessage = "Tên dự án phải có độ dài từ 2 đến 150 ký tự")]
-		public string ProjectName { get; set; } // Tên thể loại
+		[Required(ErrorMessage = "Project Name is required.")]
+		[StringLength(150, MinimumLength = 2, ErrorMessage = "Project Name must be between 2 and 150 characters.")]
+		public string ProjectName { get; set; }
 
-		[Required(ErrorMessage = "Ngày bắt đầu dự án là bắt buộc")]
-		public DateTime ProjectStartDate { get; set; } // Ngày bắt đầu
+		[Required(ErrorMessage = "Project Start Date is required.")]
+		public DateTime ProjectStartDate { get; set; }
 
-		public DateTime? ProjectEndDate { get; set; } // Ngày kết thúc (Nullable)
+		[DataType(DataType.Date)]
+		[CompareDates(nameof(ProjectStartDate), ErrorMessage = "Project Start Date must be earlier than Project End Date.")]
+		public DateTime? ProjectEndDate { get; set; }
 
-		// Liên kết với ProjectEmployee
-		public virtual ICollection<ProjectEmployee> ProjectEmployees { get; set; }
+		public virtual ICollection<ProjectEmployee>? ProjectEmployees { get; set; }
+	}
 
-		// Custom validation rule: StartDate must be earlier than EndDate
-		public bool IsValidProjectDates()
+	// Custom Validation Attribute for Project Start/End Dates
+	public class CompareDatesAttribute : ValidationAttribute
+	{
+		private readonly string _startDatePropertyName;
+
+		public CompareDatesAttribute(string startDatePropertyName)
 		{
-			return !ProjectEndDate.HasValue || ProjectStartDate < ProjectEndDate.Value;
+			_startDatePropertyName = startDatePropertyName;
+		}
+
+		protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+		{
+			var endDate = (DateTime?)value;
+			var startDateProperty = validationContext.ObjectType.GetProperty(_startDatePropertyName);
+			var startDate = (DateTime)startDateProperty.GetValue(validationContext.ObjectInstance);
+
+			if (endDate.HasValue && endDate.Value < startDate)
+			{
+				return new ValidationResult(ErrorMessage);
+			}
+
+			return ValidationResult.Success;
 		}
 	}
 }
