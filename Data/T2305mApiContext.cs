@@ -1,4 +1,4 @@
-using DMAWS_T2305M_TranHung.Models;
+﻿using DMAWS_T2305M_TranHung.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DMAWS_T2305M_TranHung.Data;

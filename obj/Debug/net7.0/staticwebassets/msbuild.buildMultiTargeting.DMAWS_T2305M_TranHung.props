@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\DMAWS_T2305M_TranHung.props" />
+</Project>

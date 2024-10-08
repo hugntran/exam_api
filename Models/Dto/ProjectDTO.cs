@@ -1,4 +1,4 @@
-namespace DMAWS_T2305M_TranHung.Models.Dto
+﻿namespace DMAWS_T2305M_TranHung.Models.Dto
 {
 	public class GetBasicProjectDTO
 	{

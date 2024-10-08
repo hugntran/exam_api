@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ADMIN\\source\\repos\\DMAWS_T2305M_TranHung\\DMAWS_T2305M_TranHung\\DMAWS_T2305M_TranHung.csproj": {}
+    "C:\\Users\\ADMIN\\source\\repos\\DMAWS_T2305M_TranHung\\T2305M_API\\DMAWS_T2305M_TranHung.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ADMIN\\source\\repos\\DMAWS_T2305M_TranHung\\DMAWS_T2305M_TranHung\\DMAWS_T2305M_TranHung.csproj": {
+    "C:\\Users\\ADMIN\\source\\repos\\DMAWS_T2305M_TranHung\\T2305M_API\\DMAWS_T2305M_TranHung.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ADMIN\\source\\repos\\DMAWS_T2305M_TranHung\\DMAWS_T2305M_TranHung\\DMAWS_T2305M_TranHung.csproj",
+        "projectUniqueName": "C:\\Users\\ADMIN\\source\\repos\\DMAWS_T2305M_TranHung\\T2305M_API\\DMAWS_T2305M_TranHung.csproj",
         "projectName": "DMAWS_T2305M_TranHung",
-        "projectPath": "C:\\Users\\ADMIN\\source\\repos\\DMAWS_T2305M_TranHung\\DMAWS_T2305M_TranHung\\DMAWS_T2305M_TranHung.csproj",
+        "projectPath": "C:\\Users\\ADMIN\\source\\repos\\DMAWS_T2305M_TranHung\\T2305M_API\\DMAWS_T2305M_TranHung.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ADMIN\\source\\repos\\DMAWS_T2305M_TranHung\\DMAWS_T2305M_TranHung\\obj\\",
+        "outputPath": "C:\\Users\\ADMIN\\source\\repos\\DMAWS_T2305M_TranHung\\T2305M_API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -45,9 +45,17 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.15, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[7.0.20, )"
+              "version": "[7.0.7, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
