@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\DMAWS_T2305M_KieuQuocAnh.props" />
-</Project>
