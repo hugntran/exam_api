@@ -1,38 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DMAWS_T2305M_TranHung.Models
 {
 	public class Employee
 	{
-		public int EmployeeId { get; set; } // Id nhân viên
+		[Key] // Primary key
+		public int EmployeeId { get; set; }
 
-		[Required(ErrorMessage = "Tên nhân viên là bắt buộc")]
-		[StringLength(150, MinimumLength = 2, ErrorMessage = "Tên nhân viên phải có độ dài từ 2 đến 150 ký tự")]
-		public string EmployeeName { get; set; } // Tên nhân viên
+		[Required(ErrorMessage = "Employee Name is required.")]
+		[StringLength(150, MinimumLength = 2, ErrorMessage = "Employee Name must be between 2 and 150 characters.")]
+		public string EmployeeName { get; set; }
 
-		[Required(ErrorMessage = "Ngày sinh là bắt buộc")]
-		public DateTime EmployeeDOB { get; set; } // Ngày tháng năm sinh
+		[Required(ErrorMessage = "Employee Date of Birth is required.")]
+		[DataType(DataType.Date)]
+		[MinAge(16, ErrorMessage = "Employee must be at least 16 years old.")]
+		public DateTime EmployeeDOB { get; set; }
 
-		[Required(ErrorMessage = "Bộ phận là bắt buộc")]
-		public string EmployeeDepartment { get; set; } // Bộ phận
+		[Required(ErrorMessage = "Employee Department is required.")]
+		public string EmployeeDepartment { get; set; }
 
-		[Required(ErrorMessage = "Email là bắt buộc")]
-		[EmailAddress(ErrorMessage = "Địa chỉ email không hợp lệ")]
-		public string Email { get; set; } // Địa chỉ email
+		public virtual ICollection<ProjectEmployee>? ProjectEmployees { get; set; }
+	}
 
-		// Liên kết với ProjectEmployee
-		public virtual ICollection<ProjectEmployee> ProjectEmployees { get; set; }
+	// Custom Validation Attribute for Minimum Age
+	public class MinAgeAttribute : ValidationAttribute
+	{
+		private readonly int _minimumAge;
 
-		// Custom validation: Employee must be over 16 years old
-		public bool IsValidEmployeeDOB()
+		public MinAgeAttribute(int minimumAge)
 		{
-			var today = DateTime.Today;
-			var age = today.Year - EmployeeDOB.Year;
-			if (EmployeeDOB > today.AddYears(-age)) age--;
+			_minimumAge = minimumAge;
+		}
 
-			return age >= 16;
+		protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+		{
+			var birthDate = (DateTime)value;
+			if (birthDate.AddYears(_minimumAge) > DateTime.Today)
+			{
+				return new ValidationResult(ErrorMessage);
+			}
+
+			return ValidationResult.Success;
 		}
 	}
 }
